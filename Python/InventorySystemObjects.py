@@ -1,5 +1,8 @@
 from typing import Literal
 
+import os
+import time
+
 class Item:
     department = ""
     section = ""
@@ -32,17 +35,46 @@ class Item:
 class Menu:
     currentInventory = []
 
+    #Clears the terminal
+    def clear_terminal(self):
+        # Check the operating system name
+        if os.name == 'nt':
+            # Command for Windows
+            _ = os.system('cls')
+        else:
+            # Command for macOS and Linux (posix)
+            _ = os.system('clear')
+    
+    #Warns the user they made an incorrect input
+    def invalid_input(self):
+        print("Please Enter A Valid Input")
+        time.sleep(1)
+        
+    #Displays the item details menu    
+    def displayItemDetailsScreen(self):
+        return
+
+    #Displays the add item menu    
+    def displayAddItemScreen(self):
+        return
+
+    #displays The main menu
     def run(self):
         while 1:
+            self.clear_terminal()
             userResponse = input("Sporting Good Inventory\n" \
-            "\n" \
-            "[1] Item Details\n" \
-            "[2] Add Item\n")
+                "\n" \
+                "[1] Item Details\n" \
+                "[2] Add Item\n")
 
-            if(userResponse == 1):
-                1
-            elif(userResponse == 2):
-                1
+            if(userResponse == "1"):
+                self.clear_terminal()
+                self.displayItemDetailsScreen()
+            elif(userResponse == "2"):
+                self.clear_terminal()
+                self.displayAddItemScreen()
             else:
+                self.clear_terminal()
+                self.invalid_input()
                 
 
