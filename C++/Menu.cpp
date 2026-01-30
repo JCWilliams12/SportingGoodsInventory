@@ -27,7 +27,7 @@ void Menu::clearTerminal() {
     #endif
 }
 
-// Clears the input buffer to prevent skipping skipped lines
+// Clears the input buffer to prevent skipping lines
 void Menu::invalidInput() {
     std::cout << "\n!!! Invalid Input. Please try again. !!!\n";
     std::cin.clear();
