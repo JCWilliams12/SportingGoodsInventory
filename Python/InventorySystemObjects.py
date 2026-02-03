@@ -3,62 +3,139 @@ import time
 
 class Item:
     def __init__(self, department, section, itemName, quantity, price):
-        self.department = department
-        self.section = section
-        self.itemName = itemName
-        self.quantity = quantity
-        self.price = price
-        self.discount = 0.0  # Percentage as a decimal (0.1 for 10%)
+        self.__department = department
+        self.__section = section
+        self.__itemName = itemName
+        self.__quantity = quantity
+        self.__price = price
+        self.__discount = 0.0  # Percentage as a decimal (0.1 for 10%)
+
+    # Getters and Setters to access protected attributes
+    @property
+    def department(self):
+        return self.__department
+
+    @property
+    def section(self):
+        return self.__section
+
+    @property
+    def itemName(self):
+        return self.__itemName
+
+    @property
+    def quantity(self):
+        return self.__quantity
+
+    @quantity.setter
+    def quantity(self, value):
+        self.__quantity = value
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        self.__price = value
+
+    @property
+    def discount(self):
+        return self.__discount
+
+    @discount.setter
+    def discount(self, value):
+        self.__discount = value
 
     @property
     def discounted_price(self):
-        return self.price * (1.0 - self.discount)
+        return self.__price * (1.0 - self.__discount)
 
     #display item
     def __str__(self):
-        return (f"{self.itemName:<15} | Qty: {self.quantity:<4} | "
-                f"Price: ${self.price:>7.2f} | "
-                f"Disc: {self.discount*100:>3.0f}% | "
+        return (f"{self.__itemName:<15} | Qty: {self.__quantity:<4} | "
+                f"Price: ${self.__price:>7.2f} | "
+                f"Disc: {self.__discount*100:>3.0f}% | "
                 f"Total: ${self.discounted_price:>7.2f}")
 
 # -=-=-= Child Classes -=-=-=-
 class VolleyballItem(Item):
     def __init__(self, name, qty, price, training_type):
         super().__init__("indoor", "volleyball", name, qty, price)
-        self.training_type = training_type
+        self.__training_type = training_type
+
+    @property
+    def training_type(self):
+        return self.__training_type
+
+    @training_type.setter
+    def training_type(self, value):
+        self.__training_type = value
 
     def __str__(self):
-        return super().__str__() + f" | Type: {self.training_type}"
+        return super().__str__() + f" | Type: {self.__training_type}"
 
 class TableTennisItem(Item):
     def __init__(self, name, qty, price, style, material):
         super().__init__("indoor", "table_tennis", name, qty, price)
-        self.style = style
-        self.material = material
+        self.__style = style
+        self.__material = material
+
+    @property
+    def style(self):
+        return self.__style
+
+    @style.setter
+    def style(self, value):
+        self.__style = value
+
+    @property
+    def material(self):
+        return self.__material
+
+    @material.setter
+    def material(self, value):
+        self.__material = value
 
     def __str__(self):
-        return super().__str__() + f" | Sty: {self.style} | Mat: {self.material}"
+        return super().__str__() + f" | Sty: {self.__style} | Mat: {self.__material}"
 
 class CampingItem(Item):
     def __init__(self, name, qty, price, weather_rating):
         super().__init__("outdoor", "camping", name, qty, price)
-        self.weather_rating = weather_rating
+        self.__weather_rating = weather_rating
+
+    @property
+    def weather_rating(self):
+        return self.__weather_rating
+
+    @weather_rating.setter
+    def weather_rating(self, value):
+        self.__weather_rating = value
 
     def __str__(self):
-        return super().__str__() + f" | Wx: {self.weather_rating}"
+        return super().__str__() + f" | Wx: {self.__weather_rating}"
 
 class SoccerItem(Item):
     def __init__(self, name, qty, price, size):
         super().__init__("outdoor", "soccer", name, qty, price)
-        self.size = size
+        self.__size = size
+
+    @property
+    def size(self):
+        return self.__size
+
+    @size.setter
+    def size(self, value):
+        self.__size = value
 
     def __str__(self):
-        return super().__str__() + f" | Size: {self.size}"
+        return super().__str__() + f" | Size: {self.__size}"
 
 class Menu:
     def __init__(self):
         #default item
-        self.currentInventory = [VolleyballItem("Pro Net", 10, 50.0, "Professional")]
+        self.__currentInventory = [VolleyballItem("Pro Net", 10, 50.0, "Professional")]
 
     #clears terminal for windows mac and linux
     def clear_terminal(self):
@@ -136,7 +213,7 @@ class Menu:
             print("-" * 75)
             
             # find items in the section
-            matches = [i for i in self.currentInventory if i.department == dept and i.section == sect]
+            matches = [i for i in self.__currentInventory if i.department == dept and i.section == sect]
             
             #if empty
             if not matches:
@@ -206,7 +283,7 @@ class Menu:
                     size = input("Size: ")
                     new_item = SoccerItem(name, qty, price, size)
 
-            self.currentInventory.append(new_item)
+            self.__currentInventory.append(new_item)
             print("\nItem added successfully!")
             time.sleep(1)
         except ValueError:
